@@ -59,6 +59,11 @@ The goals / steps of this project are the following:
 ### 2. Color Spaces and Histogram of Oriented Gradients
 #### Code - Section 116 & 117 ``` vehicle_detection_notebook.ipynb```
 - Explored different color spaces RGB, HSV, HLS, LAB, YCRB and different `skimage.hog()` and parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  
+- The HOG extractor extracts meaningful features of a image. 
+- It captures the common aspects of cars, not the specifics of it.
+- It is the same as humans (at the first glance), we locate the car, not the model, the tires, or other small details.
+- It divides an image into several pieces. For each piece, it calculates the gradient of variation in a given number of orientations. 
+- The idea is that the HOG captures the essence of original image.
 
 ![alt text][image10]
 
@@ -84,17 +89,35 @@ The goals / steps of this project are the following:
 11  |  16 |  2 |  1188
 
 
-#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+#### 3. SVM Classfier
+- These data are separated in training (80%) and validation sets (20%)
+- In this case, I used a Support Vector Machine Classifier (SVC), with linear kernel.
+- A SVM finds a line that better divides two sets. 
+- Referal: http://docs.opencv.org/2.4/doc/tutorials/ml/introduction_to_svm/introduction_to_svm.html
+- The car can appear in different sizes. 
+- Then, we apply different windows sizes over the image. 
+- Spatial bins not used as it was considered unnecessary.
 
-I trained a linear SVM using...
+**Accuracy**                     |
+ :-------------------------:
+98.17%  |
+
 
 ### Sliding Window Search
 
-#### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
-
 I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
 
-![alt text][image3]
+- Adapted the method ```find_cars``` from the udacity materials. 
+- The method combines HOG feature extraction with a sliding window search.
+- Instead of calculating feature extraction on each window individually which can be time consuming, the HOG features are extracted for the entire image.
+- The full-image features are subsampled according to the size of the window.
+- Then the respective portion is fed to the classifier. 
+- Prediction on the HOG features for each window is performed and a list of rectangle objects are returned if there is a match.
+
+ **Multiple Detections 1**                     |  **Multiple Detections 2** 
+ :-------------------------:|:-------------------------:
+![alt text][image13] |  ![alt text][image14]
+
 
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
