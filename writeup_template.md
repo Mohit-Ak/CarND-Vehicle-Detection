@@ -48,18 +48,20 @@ The goals / steps of this project are the following:
 - Data was extracted from https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip and https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip
 - Ensured that the number of positive and negative samples are of approximately the same count so that the learning is not biased.
 
-The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
 
-I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
+ **Vehicle Size**                     |  **Non-Vehicle Size** 
+ :-------------------------:|:-------------------------:
+ 8793 |  8968
+ 
 
-![alt text][image1]
+- I started by reading in all the `vehicle` and `non-vehicle` images.  
+- Here is an example of `vehicle` and `non-vehicle` classes along with the other statistics:
+![alt text][image9]
 
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
+- Explored different color spaces RGB, HSV, HLS, LAB, YCRB and different `skimage.hog()` and parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  
 
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
+![alt text][image10]
 
-
-![alt text][image2]
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
