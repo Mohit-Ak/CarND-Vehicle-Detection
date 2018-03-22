@@ -1,5 +1,33 @@
-## Writeup Template
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+
+[//]: # (Image References)
+[image1]: ./examples/car_not_car.png
+[image2]: ./examples/HOG_example.jpg
+[image3]: ./examples/sliding_windows.jpg
+[image4]: ./examples/sliding_window.jpg
+[image5]: ./examples/bboxes_and_heat.png
+[image6]: ./examples/labels_map.png
+[image7]: ./examples/output_bboxes.png
+[image8]: ./output_images/banner.png "Banner"
+[image9]: ./output_images/dataset_exploration.png "dataset_exploration"
+[image10]: ./output_images/hog.png "hog"
+[image11]: ./output_images/window.png "window"
+[image12]: ./output_images/sliding_window_roi.png "sliding_window_roi"
+[image13]: ./output_images/multiple_detection1.png "multiple_detection1"
+[image14]: ./output_images/multiple_detection2.png "multiple_detection2"
+[image15]: ./output_images/heatmap_without_threshold.png "heatmap_without_threshold"
+[image16]: ./output_images/heatmap_with_threshold.png "heatmap_with_threshold"
+[image17]: ./output_images/heatmap_grayscale.png "heatmap_grayscale"
+[image18]: ./output_images/object_detection_final.png "object_detection_final"
+[image19]: ./output_images/output1.gif "output1"
+[image20]: ./output_images/output2.gif "output2"
+[video1]: ./project_video.mp4
+
+# Vehicle Detection
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+
+![banner][image8]
+
+## Goal - To write a software pipeline to detect vehicles in a video.
 
 ---
 
@@ -14,46 +42,47 @@ The goals / steps of this project are the following:
 * Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
 * Estimate a bounding box for vehicles detected.
 
-[//]: # (Image References)
-[image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
-[video1]: ./project_video.mp4
+### 1. Data Exploration
+#### Code - Section 115 ``` vehicle_detection_notebook.ipynb```
+- Data was extracted from https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip and https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip
+- Ensured that the number of positive and negative samples are of approximately the same count so that the learning is not biased.
 
-## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+ **Vehicle Size**                     |  **Non-Vehicle Size** 
+ :-------------------------:|:-------------------------:
+ 8793 |  8968
+ 
 
----
-### Writeup / README
+- I started by reading in all the `vehicle` and `non-vehicle` images.  
+- Here is an example of `vehicle` and `non-vehicle` classes along with the other statistics:
+![alt text][image9]
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+### 2. Color Spaces and Histogram of Oriented Gradients
+#### Code - Section 116 & 117 ``` vehicle_detection_notebook.ipynb```
+- Explored different color spaces RGB, HSV, HLS, LAB, YCRB and different `skimage.hog()` and parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  
 
-You're reading it!
-
-### Histogram of Oriented Gradients (HOG)
-
-#### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
-
-The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
-
-I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
-
-![alt text][image1]
-
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
-
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
+![alt text][image10]
 
 
-![alt text][image2]
+### 3. Sliding Window and Region of Interest
+#### Code - Section 36 & 151  ``` vehicle_detection_notebook.ipynb```
+- Implemented the Sliding window function which will be used extract patches of images.
+- **Reason for scaling in Sliding window**: We know that the car would look smaller at a farther distance and bigger when it is closer.
+- **Reason for Region of interest**: Cars are not going to be present in the sky. Having a ROI can minimze the computations needed.
 
-#### 2. Explain how you settled on your final choice of HOG parameters.
 
-I tried various combinations of parameters and...
+ **Without ROI**                     |  **With ROI** 
+ :-------------------------:|:-------------------------:
+![SlidingWindow][image11] |  ![SlidingWindow-ROI][image12]
+
+ 
+### 4. Final Configuration parameters after experimentation
+- After taking educated guesses(also tried to use parameter tuning) arrived with the given set of parameters that work fine for detecting and separating cars from non-cars.
+- Also, the HOG works fine on the following Color spaces - LUV, YUV and YCrCb
+
+ **Orientations**                     |  **Pixels per cell** |  **Cells per block** |  **Feature Vector Size** 
+ :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+11  |  16 |  2 |  1188
+
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
