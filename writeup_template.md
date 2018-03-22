@@ -42,30 +42,42 @@ The goals / steps of this project are the following:
 * Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
 * Estimate a bounding box for vehicles detected.
 
-### Histogram of Oriented Gradients (HOG)
-
-#### 1. Data Exploration
+### 1. Data Exploration
+#### Code - Section 115 ``` vehicle_detection_notebook.ipynb```
 - Data was extracted from https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip and https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip
 - Ensured that the number of positive and negative samples are of approximately the same count so that the learning is not biased.
 
 
- **Vehicle Size**                     |  **Non-Vehicle Size** 
+ **Without ROI**                     |  **With ROI** 
  :-------------------------:|:-------------------------:
- 8793 |  8968
+![SlidingWindow][image11] |  ![SlidingWindow-ROI][image12]
  
 
 - I started by reading in all the `vehicle` and `non-vehicle` images.  
 - Here is an example of `vehicle` and `non-vehicle` classes along with the other statistics:
 ![alt text][image9]
 
+### 2. Color Spaces and Histogram of Oriented Gradients
+#### Code - Section 116 & 117 ``` vehicle_detection_notebook.ipynb```
 - Explored different color spaces RGB, HSV, HLS, LAB, YCRB and different `skimage.hog()` and parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  
 
 ![alt text][image10]
 
 
-#### 2. Explain how you settled on your final choice of HOG parameters.
+### 3. Sliding Window and Region of Interest
+#### Code - Section 36 & 151  ``` vehicle_detection_notebook.ipynb```
+- Implemented the Sliding window function which will be used extract patches of images.
+- **Reason for scaling in Sliding window**: We know that the car would look smaller at a farther distance and bigger when it is closer.
+- **Reason for Region of interest**: Cars are not going to be present in the sky. Having a ROI can minimze the computations needed.
 
-I tried various combinations of parameters and...
+
+ **Vehicle Size**                     |  **Non-Vehicle Size** 
+ :-------------------------:|:-------------------------:
+ 8793 |  8968
+ 
+### 4. Explain how you settled on your final choice of HOG parameters.
+
+
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
