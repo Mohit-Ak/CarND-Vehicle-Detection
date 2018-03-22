@@ -47,10 +47,9 @@ The goals / steps of this project are the following:
 - Data was extracted from https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip and https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip
 - Ensured that the number of positive and negative samples are of approximately the same count so that the learning is not biased.
 
-
- **Without ROI**                     |  **With ROI** 
+ **Vehicle Size**                     |  **Non-Vehicle Size** 
  :-------------------------:|:-------------------------:
-![SlidingWindow][image11] |  ![SlidingWindow-ROI][image12]
+ 8793 |  8968
  
 
 - I started by reading in all the `vehicle` and `non-vehicle` images.  
@@ -71,12 +70,18 @@ The goals / steps of this project are the following:
 - **Reason for Region of interest**: Cars are not going to be present in the sky. Having a ROI can minimze the computations needed.
 
 
- **Vehicle Size**                     |  **Non-Vehicle Size** 
+ **Without ROI**                     |  **With ROI** 
  :-------------------------:|:-------------------------:
- 8793 |  8968
- 
-### 4. Explain how you settled on your final choice of HOG parameters.
+![SlidingWindow][image11] |  ![SlidingWindow-ROI][image12]
 
+ 
+### 4. Final Configuration parameters after experimentation
+- After taking educated guesses(also tried to use parameter tuning) arrived with the given set of parameters that work fine for detecting and separating cars from non-cars.
+- Also, the HOG works fine on the following Color spaces - LUV, YUV and YCrCb
+
+ **Orientations**                     |  **Pixels per cell** |  **Cells per block** |  **Feature Vector Size** 
+ :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+11  |  16 |  2 |  1188
 
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
