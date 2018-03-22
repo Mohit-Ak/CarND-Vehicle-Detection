@@ -42,6 +42,10 @@ The goals / steps of this project are the following:
 * Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
 * Estimate a bounding box for vehicles detected.
 
+**Result 1**                     |  **Result 2** 
+ :-------------------------:|:-------------------------:
+![alt text][image19] |  ![alt text][image20]
+
 ### 1. Data Exploration
 #### Code - Section 115 ``` vehicle_detection_notebook.ipynb```
 - Data was extracted from https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip and https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip
@@ -109,7 +113,7 @@ The goals / steps of this project are the following:
 98.17%  |
 
 
-### 4.Sliding Window Search
+### 6.Sliding Window Search
 #### Code - Section 151 ``` vehicle_detection_notebook.ipynb```
 
 I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
@@ -121,15 +125,14 @@ I decided to search random window positions at random scales all over the image 
 - Then the respective portion is fed to the classifier. 
 - Prediction on the HOG features for each window is performed and a list of rectangle objects are returned if there is a match.
 
-### 5. Multiple Detections
+### 7. Multiple Detections
 
  **Multiple Detections 1**                     |  **Multiple Detections 2** 
  :-------------------------:|:-------------------------:
 ![alt text][image13] |  ![alt text][image14]
 
 ---
-
-### 2. False Positives and Combining Overlapping regions with Heatmap
+### 8. False Positives and Combining Overlapping regions with Heatmap
 
 - Heatmap are necessary to find the overlapping regions.
 - Overlapping regions can be used to measure the confidence.
@@ -153,14 +156,26 @@ Here's an example result showing the heatmap from a series of frames of video, t
  :-------------------------:
 ![alt text][image18] |
 
+**Result 1**                     |  **Result 2** 
+ :-------------------------:|:-------------------------:
+![alt text][image19] |  ![alt text][image20]
 
 ### Video Implementation
-- Here's a [link to my video result](./project_video.mp4)
-
+- Here's a [link to my video result](./output.mp4)
+- Works decently well on the lane detection video output too [link to my video result](./output_with_lane.mp4)
 ---
 
 ### Discussion
+- There are a lot of false positives.
+- When we try to increase the number of windows, we compromise on the realtime speed requirement.
+- If we use the previous frame as an approximate position of the car in the next frame, we loose upcoming traffic which changes it position drastically.
+- Hand tunining the configuration parameters works fine but is not a scalable solution. E.g If we are supposed to detect bikes using the same code, it would **not** work.
+- Following Neural Networks would do a better job of detection without much tuning:
+- Single Shot Multibox Detector (SSD) with MobileNets
+- SSD with Inception V2
+- Region-Based Fully Convolutional Networks (R-FCN) with Resnet 101
+- Faster RCNN with Resnet 101
+- Faster RCNN with Inception Resnet v2
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
+Note: In most of the cases above, we only need to train the penultimate layer.
 
