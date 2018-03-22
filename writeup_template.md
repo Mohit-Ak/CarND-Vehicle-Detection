@@ -1,5 +1,33 @@
-## Writeup Template
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+
+[//]: # (Image References)
+[image1]: ./examples/car_not_car.png
+[image2]: ./examples/HOG_example.jpg
+[image3]: ./examples/sliding_windows.jpg
+[image4]: ./examples/sliding_window.jpg
+[image5]: ./examples/bboxes_and_heat.png
+[image6]: ./examples/labels_map.png
+[image7]: ./examples/output_bboxes.png
+[image8]: ./output_images/banner.png "Banner"
+[image9]: ./output_images/dataset_exploration.png "dataset_exploration"
+[image10]: ./output_images/hog.png "hog"
+[image11]: ./output_images/window.png "window"
+[image12]: ./output_images/sliding_window_roi.png "sliding_window_roi"
+[image13]: ./output_images/multiple_detection1.png "multiple_detection1"
+[image14]: ./output_images/multiple_detection2.png "multiple_detection2"
+[image15]: ./output_images/heatmap_without_threshold.png "heatmap_without_threshold"
+[image16]: ./output_images/heatmap_with_threshold.png "heatmap_with_threshold"
+[image17]: ./output_images/heatmap_grayscale.png "heatmap_grayscale"
+[image18]: ./output_images/object_detection_final.png "object_detection_final"
+[image19]: ./output_images/output1.gif "output1"
+[image20]: ./output_images/output2.gif "output2"
+[video1]: ./project_video.mp4
+
+# Vehicle Detection
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+
+![banner][image8]
+
+## Goal - To write a software pipeline to detect vehicles in a video.
 
 ---
 
@@ -14,29 +42,11 @@ The goals / steps of this project are the following:
 * Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
 * Estimate a bounding box for vehicles detected.
 
-[//]: # (Image References)
-[image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
-[video1]: ./project_video.mp4
-
-## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
-
----
-### Writeup / README
-
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
-
-You're reading it!
-
 ### Histogram of Oriented Gradients (HOG)
 
-#### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+#### 1. Data Exploration
+- Data was extracted from https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip and https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip
+- Ensured that the number of positive and negative samples are of approximately the same count so that the learning is not biased.
 
 The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
 
