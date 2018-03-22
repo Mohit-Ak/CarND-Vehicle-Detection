@@ -22,7 +22,7 @@
 [image20]: ./output_images/output2.gif "output2"
 [video1]: ./project_video.mp4
 
-# Vehicle Detection
+# Vehicle Detection and Tracking
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 ![banner][image8]
@@ -179,3 +179,9 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 Note: In most of the cases above, we only need to train the penultimate layer.
 
+### References
+- https://medium.com/@jeremyeshannon
+- http://docs.opencv.org/2.4/doc/tutorials/ml/introduction_to_svm/introduction_to_svm.html
+- https://towardsdatascience.com/deep-learning-for-object-detection-a-comprehensive-review-73930816d8d9
+- Udacity nanodegree Self_Driving_Car_ND
+- https://www.analyticsvidhya.com/blog/2017/09/understaing-support-vector-machine-example-code/
